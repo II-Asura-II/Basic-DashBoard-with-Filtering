@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import data from "../Utils/data";
 import {
   BiChevronDown,
@@ -110,6 +110,10 @@ const Table = () => {
 
   const changePage = (pageNumber: number) => setPage(pageNumber);
 
+  useEffect(() => {
+    if (page > totalPages) setPage(totalPages);
+  }, [page, totalPages]);
+
   return (
     <div className="flex flex-col p-4 h-full justify-between">
       <div className="flex justify-between items-center">
@@ -117,7 +121,6 @@ const Table = () => {
           <div className="relative flex w-fit">
             <button
               onClick={() => setIsDropped(!isDropped)}
-              onBlur={() => setTimeout(() => setIsDropped(!isDropped), 200)}
               className="border-[#afafaf] border-1 text-[#cccccc] flex items-center gap-x-0.5 cursor-pointer py-2 w-22 justify-center rounded-sm">
               {sortedIcon}
               Sort
